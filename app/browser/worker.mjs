@@ -22,9 +22,7 @@ async function stateMachine ({ data }) {
           method: 'POST'
         }
       )
-      console.log('RESONSE: ', response)
       const result = await response.json()
-      console.log('RESULT: ', result)
       self.postMessage({
         type: CREATE,
         result

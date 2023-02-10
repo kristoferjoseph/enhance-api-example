@@ -1,7 +1,9 @@
 import { getStyleTag } from '@enhance/arc-plugin-styles/get-styles'
 
-export default function Head() {
+export default function Head(state={}) {
   const title = `Enhance todos`
+  const { store={} } = state
+  const { todos=[] } = store
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -22,6 +24,9 @@ export default function Head() {
         }
       </style>
       <link rel="icon" href="/_public/favicon.svg">
+      <script>
+        window.__INITIAL_STATE__ = ${JSON.stringify({ todos })}
+      </script>
     </head>
     <body class="font-sans">
   `

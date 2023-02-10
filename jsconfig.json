@@ -1,0 +1,12 @@
+{
+  "compilerOptions": {
+    "noLib": true,
+    "checkJS": false,
+    "experimentalDecorators": false,
+    "allowSyntheticDefaultImports": false,
+    "module": "esnext",
+    "target": "es2020",
+    "moduleResolution": "node"
+  },
+  "exclude": ["node_modules"]
+}

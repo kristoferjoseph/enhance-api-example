@@ -1,4 +1,4 @@
-/* global Worker */
+/* global window, Worker */
 import Store from '@enhance/store'
 const store = Store({ todos: [] })
 
@@ -12,6 +12,11 @@ export default function API() {
   if (!worker) {
     worker = new Worker('./_public/pages/worker.mjs')
     worker.onmessage = mutate
+  }
+
+  if (window.__INITIAL_STATE__) {
+    const initialState = window.__INITIAL_STATE__
+    store.initialize(initialState)
   }
 
   return {
@@ -44,37 +49,49 @@ function mutate(e) {
   }
 }
 
-function createMutation({ todo }) {
+function createMutation({ todo={}, problems={} }) {
   const copy = store.todos.slice()
   copy.push(todo)
   store.todos = copy
+  store.problems = problems
 }
 
-function updateMutation({ todo }) {
+function updateMutation({ todo={}, problems={} }) {
   const copy = store.todos.slice()
   copy.splice(copy.findIndex(i => i.key === todo.key), 1, todo)
   store.todos = copy
+  store.problems = problems
 }
 
-function destroyMutation({ todo }) {
+function destroyMutation({ todo={}, problems={} }) {
   let copy = store.todos.slice()
   copy.splice(copy.findIndex(i => i.key === todo.key), 1)
   store.todos = copy
+  store.problems = problems
 }
 
-function listMutation(result) {
-  store.initialize({ todos: result || [] })
+function listMutation({ todos=[], problems={} }) {
+  store.initialize({ todos, problems })
 }
 
+function processForm(form) {
+  return JSON.stringify(
+    Object.fromEntries(
+      new FormData(form)
+    )
+  )
+}
 
-function create(todo) {
+function create(form) {
+  const todo = processForm(form)
   worker.postMessage({
     type: CREATE,
     data: todo
   })
 }
 
-function destroy (todo) {
+function destroy (form) {
+  const todo = processForm(form)
   worker.postMessage({
     type: DESTROY,
     data: todo
@@ -87,7 +104,8 @@ function list () {
   })
 }
 
-function update (todo) {
+function update (form) {
+  const todo = processForm(form)
   worker.postMessage({
     type: UPDATE,
     data: todo

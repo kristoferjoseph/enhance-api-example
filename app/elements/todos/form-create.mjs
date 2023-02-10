@@ -1,4 +1,6 @@
 export default function TodosCreateForm({ html, state }) {
+  const { store } = state
+  const { problems={} } = store
   const borderClasses = `
 border1
 border-solid
@@ -6,41 +8,19 @@ border-current
 radius0
 overflow-hidden
 `
-  return html`
-<style>
-  :host {
-    display: block;
-    margin: 0 auto;
-    min-width: 15rem;
-    max-width: 50rem;
-  }
 
-  .btn-primary {
-    background-color: var(--primary-500);
-  }
-  .btn-primary:hover {
-    background-color: var(--primary-400);
-  }
-  .btn-primary:active {
-    background-color: var(--primary-600);
-  }
-  .btn-primary,
-  .clr-light {
-    color: var(--light);
-  }
-</style>
+  return html`
+<pre><code>
+${JSON.stringify(problems, null, 2)}
+</code></pre>
 <fieldset
   class="
    grid
    gap0
-   pt1
-   pr1
-   pb2
-   pl1
-   ${borderClasses}
+   border-none
  "
 >
-  <legend class="text2">
+  <legend class="text2 mb1">
     Todos
   </legend>
   <form
@@ -72,44 +52,15 @@ overflow-hidden
         "
         name="title"
         type="text"
+        placeholder="Add a title"
         autofocus
         required
       >
     </div>
 
-      <!--
-    <div
-      class="
-        flex
-        flex-col
-      "
-    >
-      <label
-        for="content"
-        class="
-          mb-4
-        "
-      >
-        Content
-      </label>
-      <textarea
-        class="
-          flex-grow
-          p-4
-          text2
-          ${borderClasses}
-        "
-        name="content"
-        rows="3"
-      ></textarea>
-    </div>
-      -->
-
-
     <footer class="text-right">
       <button
        class="
-        inline-flex
         pt-1
         pr2
         pb-1
@@ -122,11 +73,9 @@ overflow-hidden
         Save
       </button>
     </footer>
+
   </form>
 
-  <hr class="${borderClasses}">
-
-  <todos-list></todos-list>
 </fieldset>
   `
 }

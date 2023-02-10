@@ -3,7 +3,8 @@ export const Todo = {
   "type": "object",
   "properties": {
     "title": {
-      "type": "string"
+      "type": "string",
+      "required": "true"
     },
     "content": {
       "type": "string"
