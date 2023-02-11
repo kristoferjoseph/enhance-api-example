@@ -5,6 +5,7 @@ export default function TodosItem({ html, state }) {
 
   return html`
     <form
+     id="update-form-${key}"
      action="/todos/${key}"
      class="flex flex-grow"
      method="POST"
@@ -21,6 +22,7 @@ export default function TodosItem({ html, state }) {
     </form>
 
     <form
+      id="delete-form-${key}"
       action="/todos/${key}/delete"
       method="POST"
     >

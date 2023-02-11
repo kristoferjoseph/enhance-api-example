@@ -1,6 +1,4 @@
-export default function TodosCreateForm({ html, state }) {
-  const { store } = state
-  const { problems={} } = store
+export default function TodosCreateForm({ html }) {
   const borderClasses = `
 border1
 border-solid
@@ -10,9 +8,6 @@ overflow-hidden
 `
 
   return html`
-<pre><code>
-${JSON.stringify(problems, null, 2)}
-</code></pre>
 <fieldset
   class="
    grid
