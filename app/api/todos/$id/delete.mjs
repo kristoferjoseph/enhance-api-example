@@ -12,10 +12,10 @@ export async function post (req) {
   // eslint-disable-next-line no-unused-vars
   let { problems: removedProblems, todo: removed, ...newSession } = session
   try {
-    await deleteTodo(id)
+    let result = await deleteTodo(id)
     return {
       session: newSession,
-      json: null,
+      json: { result },
       location: '/todos'
     }
   }

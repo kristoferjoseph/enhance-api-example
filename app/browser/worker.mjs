@@ -59,8 +59,9 @@ async function stateMachine ({ data }) {
     break
   case DESTROY:
     try {
+      const key = JSON.parse(payload).key
       const result = await (await fetch(
-        `/todos/delete`, {
+        `/todos/${key}/delete`, {
           body: payload,
           credentials: 'same-origin',
           headers: {
