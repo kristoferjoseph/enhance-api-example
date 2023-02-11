@@ -1,9 +1,9 @@
 node_modules/
 .env
-.jsconfig.json
-
 # Enhance temp files
 .enhance/
+
+jsconfig.json
 
 # Generated assets
 public/static.json
