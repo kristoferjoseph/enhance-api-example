@@ -28,25 +28,20 @@ enhance('todos-list', {
 
 enhance('todos-item', {
   api,
-  keys: [ 'completed', 'title' ],
   init() {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)
     const key = this.getAttribute('key')
     this.updateForm = this.querySelector(`#update-form-${key}`)
-    console.log('UPDATE FORM: ', this.updateForm)
     this.deleteForm = this.querySelector(`#delete-form-${key}`)
-    console.log('DELETE FORM: ', this.deleteForm)
     this.updateForm.addEventListener('submit', this.update)
     this.deleteForm.addEventListener('submit', this.delete)
   },
   update(e) {
-    console.log('UPDATE CALLED: ', e.target)
     e.preventDefault()
     this.api.update(this.updateForm)
   },
   delete(e) {
-    console.log('DELETE CALLED: ', e.target)
     e.preventDefault()
     this.api.destroy(this.deleteForm)
   },

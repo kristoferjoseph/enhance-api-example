@@ -33,6 +33,7 @@ overflow-hidden
       "
     >
       <label
+        style="color:white"
         class="mb-4"
         for="title"
       >
@@ -47,12 +48,13 @@ overflow-hidden
         "
         name="title"
         type="text"
-        placeholder="Add a title"
+        placeholder="Add a title ⏎"
         autofocus
         required
       >
     </div>
 
+      <!--
     <footer class="text-right">
       <button
        class="
@@ -69,6 +71,7 @@ overflow-hidden
       </button>
     </footer>
 
+      -->
   </form>
 
 </fieldset>
