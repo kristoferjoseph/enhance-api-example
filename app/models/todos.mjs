@@ -3,7 +3,8 @@ import { validator } from '@begin/validator'
 import { Todo } from './schemas/todo.mjs'
 
 const deleteTodo = async function (key) {
-  return data.destroy({ table: 'todos', key })
+  await data.destroy({ table: 'todos', key })
+  return { key }
 }
 
 const upsertTodo = async function (todo) {
