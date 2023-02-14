@@ -12,10 +12,11 @@ enhance('todos-form-create', {
     this.submit = this.submit.bind(this)
     this.addEventListener('submit', this.submit)
     this.form = this.querySelector('form')
+    this.focus = this.focus.bind(this)
   },
   render: TodosFormCreate,
   submit(e) {
-    e && e.preventDefault()
+    e.preventDefault()
     this.api.create(this.form)
   }
 })
@@ -32,10 +33,12 @@ enhance('todos-item', {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)
     const key = this.getAttribute('key')
-    this.updateForm = this.querySelector(`#update-form-${key}`)
-    this.deleteForm = this.querySelector(`#delete-form-${key}`)
+    this.updateForm = this.querySelector(`form[action='/todos/${key}']`)
+    this.deleteForm = this.querySelector(`form[action='/todos/${key}/delete']`)
     this.updateForm.addEventListener('submit', this.update)
     this.deleteForm.addEventListener('submit', this.delete)
+    this.checkbox = this.querySelector('input[type="checkbox"]')
+    this.checkbox.addEventListener('click', this.update)
   },
   update(e) {
     e.preventDefault()

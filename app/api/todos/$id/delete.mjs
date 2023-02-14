@@ -13,7 +13,6 @@ export async function post (req) {
   let { problems: removedProblems, todo: removed, ...newSession } = session
   try {
     let todo = await deleteTodo(id)
-    console.log(todo)
     return {
       session: newSession,
       json: { todo },

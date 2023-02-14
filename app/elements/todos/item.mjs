@@ -4,8 +4,12 @@ export default function TodosItem({ html, state }) {
   const checked = completed === 'true' ? 'checked' : ''
 
   return html`
+    <style>
+      :host input[checked] + input[type="text"] {
+        text-decoration: line-through;
+      }
+    </style>
     <form
-     id="update-form-${key}"
      action="/todos/${key}"
      class="flex flex-grow"
      method="POST"
@@ -22,7 +26,6 @@ export default function TodosItem({ html, state }) {
     </form>
 
     <form
-      id="delete-form-${key}"
       action="/todos/${key}/delete"
       method="POST"
     >
