@@ -23,12 +23,12 @@ enhance('todos-form-create', {
 
 enhance('todos-list', {
   api,
-  keys: [ 'todos' ],
   render: TodosList
 })
 
 enhance('todos-item', {
   api,
+  keys: [ 'todos' ],
   init() {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)
@@ -37,8 +37,10 @@ enhance('todos-item', {
     this.deleteForm = this.querySelector(`form[action='/todos/${key}/delete']`)
     this.updateForm.addEventListener('submit', this.update)
     this.deleteForm.addEventListener('submit', this.delete)
-    this.checkbox = this.querySelector('input[type="checkbox"]')
-    this.checkbox.addEventListener('click', this.update)
+    this.checkboxInput = this.querySelector('input[type="checkbox"]')
+    this.checkboxInput.addEventListener('click', this.update)
+    this.titleInput = this.querySelector('input[name="title"]')
+    this.titleInput.addEventListener('input', this.update)
   },
   update(e) {
     e.preventDefault()
