@@ -6,7 +6,11 @@ export default function Todo(state) {
    class="flex"
 >
   <todos-item
-    class="flex flex-grow"
+    class="
+     flex
+     flex-grow
+     items-center
+    "
     completed="${completed}"
     created="${created}"
     key="${key}"

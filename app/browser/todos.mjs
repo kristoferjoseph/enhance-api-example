@@ -12,7 +12,6 @@ enhance('todos-form-create', {
     this.submit = this.submit.bind(this)
     this.addEventListener('submit', this.submit)
     this.form = this.querySelector('form')
-    this.focus = this.focus.bind(this)
   },
   render: TodosFormCreate,
   submit(e) {
@@ -23,12 +22,12 @@ enhance('todos-form-create', {
 
 enhance('todos-list', {
   api,
+  keys: [ 'todos' ],
   render: TodosList
 })
 
 enhance('todos-item', {
   api,
-  keys: [ 'todos' ],
   init() {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)

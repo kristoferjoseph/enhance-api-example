@@ -8,14 +8,24 @@ export default function TodosItem({ html, state }) {
       :host input:checked + input[type="text"] {
         text-decoration: line-through;
       }
+      :host input[type="checkbox"] {
+        width: 1rem;
+      }
     </style>
     <form
      action="/todos/${key}"
-     class="flex flex-grow"
+     class="
+      flex
+      flex-grow
+     "
      method="POST"
     >
       <input
-        class="mr1"
+        class="
+         inline-block
+         mr1
+         radius1
+        "
         name="completed"
         type="checkbox"
         ${checked}
@@ -27,6 +37,7 @@ export default function TodosItem({ html, state }) {
         class="
           flex-grow
           mr1
+          p-2
         "
       >
       <input
@@ -42,7 +53,7 @@ export default function TodosItem({ html, state }) {
       method="POST"
     >
       <input type="hidden" name="key" value="${key}">
-      <button>❌</button>
+      <button class="p-2">❌</button>
     </form>
   `
 }

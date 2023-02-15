@@ -14,10 +14,12 @@ export default function Head(state={}) {
       ${getStyleTag()}
       <style>
         :root {
-          --theme-color: var(--primary-500);
+          --theme-color: var(--primary-600);
         }
         :focus {
-          outline: 0.15rem solid var(--primary-300);
+          outline: none;
+          box-shadow: 0 0 2px 2px var(--primary-300);
+          border-radius: 2px;
         }
         .color {
           color: var(--theme-color);
@@ -28,6 +30,6 @@ export default function Head(state={}) {
         window.__INITIAL_STATE__ = ${JSON.stringify({ todos })}
       </script>
     </head>
-    <body class="font-sans">
+    <body class="font-sans color">
   `
 }
