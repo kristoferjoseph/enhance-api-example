@@ -14,7 +14,7 @@ export default function Head(state={}) {
       ${getStyleTag()}
       <style>
         :root {
-          --theme-color: var(--primary-600);
+          --theme-color: var(--secondary-600);
         }
         :focus {
           outline: none;

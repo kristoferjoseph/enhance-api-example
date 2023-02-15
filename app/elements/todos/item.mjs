@@ -4,14 +4,6 @@ export default function TodosItem({ html, state }) {
   const checked = completed === 'true' ? 'checked' : ''
 
   return html`
-    <style>
-      :host input:checked + input[type="text"] {
-        text-decoration: line-through;
-      }
-      :host input[type="checkbox"] {
-        width: 1rem;
-      }
-    </style>
     <form
      action="/todos/${key}"
      class="

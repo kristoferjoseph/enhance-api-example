@@ -8,6 +8,14 @@ export default function TodosList({ html, state }) {
     .join('\n')
 
   return html`
+    <style>
+      :host input:checked + input[type="text"] {
+        text-decoration: line-through;
+      }
+      :host input[type="checkbox"] {
+        width: 1rem;
+      }
+    </style>
     <ul
       class="
         grid
