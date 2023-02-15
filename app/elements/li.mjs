@@ -1,9 +1,9 @@
-export default function Todo(state) {
+export default function li(state) {
   const { completed=false, created='', key='', title='' } = state
   return `
- <li
-   id="${key}"
-   class="flex"
+<li
+  id="${key}"
+  class="flex"
 >
   <todos-item
     class="

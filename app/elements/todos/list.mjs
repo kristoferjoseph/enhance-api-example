@@ -1,10 +1,10 @@
-import Todo from '../li.mjs'
+import li from '../li.mjs'
 
 export default function TodosList({ html, state }) {
   const { store = {} } = state
   const { todos = [{ title: 'Edit this Todo.' }] } = store
   const todoItems = todos
-    .map(t => Todo(t))
+    .map(t => li(t))
     .join('\n')
 
   return html`

@@ -28,6 +28,7 @@ enhance('todos-list', {
 
 enhance('todos-item', {
   api,
+  keys: [ 'todos' ],
   init() {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)
