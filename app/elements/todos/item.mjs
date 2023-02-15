@@ -5,7 +5,7 @@ export default function TodosItem({ html, state }) {
 
   return html`
     <style>
-      :host input[checked] + input[type="text"] {
+      :host input:checked + input[type="text"] {
         text-decoration: line-through;
       }
     </style>
@@ -20,8 +20,20 @@ export default function TodosItem({ html, state }) {
         type="checkbox"
         ${checked}
       >
-      <input type="text" name="title" value="${title}">
-      <input type="hidden" name="created" value="${created}">
+      <input
+        type="text"
+        name="title"
+        value="${title}"
+        class="
+          flex-grow
+          mr1
+        "
+      >
+      <input
+        type="hidden"
+        name="created"
+        value="${created}"
+      >
       <input type="hidden" name="key" value="${key}">
     </form>
 

@@ -1,6 +1,6 @@
 /* global window, Worker */
 import Store from '@enhance/store'
-const store = Store({ todos: [] })
+const store = Store()
 
 const CREATE  = 'create'
 const UPDATE  = 'update'

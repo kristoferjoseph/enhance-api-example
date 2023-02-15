@@ -39,8 +39,8 @@ enhance('todos-item', {
     this.deleteForm.addEventListener('submit', this.delete)
     this.checkboxInput = this.querySelector('input[type="checkbox"]')
     this.checkboxInput.addEventListener('click', this.update)
-    this.titleInput = this.querySelector('input[name="title"]')
-    this.titleInput.addEventListener('input', this.update)
+    this.textInput = this.querySelector('input[type="text"]')
+    this.textInput.addEventListener('input', debounce(this.update))
   },
   update(e) {
     e.preventDefault()
@@ -52,3 +52,11 @@ enhance('todos-item', {
   },
   render: TodosItem
 })
+
+function debounce(fn, delay=1500) {
+  let timeout
+  return (...args) => {
+    timeout && clearTimeout(timeout)
+    timeout = setTimeout(()=> fn.apply(this, args), delay)
+  }
+}

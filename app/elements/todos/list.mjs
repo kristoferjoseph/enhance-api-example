@@ -1,4 +1,4 @@
-import Todo from '../../tags/todo.mjs'
+import Todo from '../li.mjs'
 
 export default function TodosList({ html, state }) {
   const { store = {} } = state
