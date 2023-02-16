@@ -12,6 +12,10 @@ enhance('todos-form-create', {
     this.submit = this.submit.bind(this)
     this.addEventListener('submit', this.submit)
     this.form = this.querySelector('form')
+    this.textInput = this.querySelector('input[type="text"]')
+  },
+  connected() {
+    this.textInput.focus()
   },
   render: TodosFormCreate,
   submit(e) {
