@@ -38,7 +38,7 @@
   "dependencies": {
     "@begin/validator": "^0.1.0",
     "@enhance/arc-plugin-enhance": "^4.4.1",
-    "@enhance/element": "^1.1.1",
+    "@enhance/element": "^1.1.2",
     "@enhance/store": "^1.0.1"
   }
 }

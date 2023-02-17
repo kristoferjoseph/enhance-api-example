@@ -46,12 +46,7 @@ enhance('todos-item', {
     this.textInput.addEventListener('focusout', this.update)
   },
   update(e) {
-    // This is where you want to add debugging and logging
     e.preventDefault()
-    // const form = this.updateForm
-    // const keyInput = form.querySelector('input[name="key"]')
-    // const key = keyInput.getAttribute('value')
-    // if(key) // This is a hack to only post if the key exists. Root cause is form is structually incomplete. Missing key input.
     this.api.update(this.updateForm)
   },
   delete(e) {
