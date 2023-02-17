@@ -32,7 +32,6 @@ enhance('todos-list', {
 
 enhance('todos-item', {
   api,
-  keys: [ 'todos' ],
   init() {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)
@@ -44,10 +43,15 @@ enhance('todos-item', {
     this.checkboxInput = this.querySelector('input[type="checkbox"]')
     this.checkboxInput.addEventListener('click', this.update)
     this.textInput = this.querySelector('input[type="text"]')
-    this.textInput.addEventListener('input', debounce(this.update))
+    this.textInput.addEventListener('focusout', this.update)
   },
   update(e) {
+    // This is where you want to add debugging and logging
     e.preventDefault()
+    // const form = this.updateForm
+    // const keyInput = form.querySelector('input[name="key"]')
+    // const key = keyInput.getAttribute('value')
+    // if(key) // This is a hack to only post if the key exists. Root cause is form is structually incomplete. Missing key input.
     this.api.update(this.updateForm)
   },
   delete(e) {
@@ -56,11 +60,3 @@ enhance('todos-item', {
   },
   render: TodosItem
 })
-
-function debounce(fn, delay=1500) {
-  let timeout
-  return (...args) => {
-    timeout && clearTimeout(timeout)
-    timeout = setTimeout(()=> fn.apply(this, args), delay)
-  }
-}
