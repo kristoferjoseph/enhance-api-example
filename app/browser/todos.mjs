@@ -35,6 +35,7 @@ enhance('todos-item', {
   init() {
     this.update = this.update.bind(this)
     this.delete = this.delete.bind(this)
+    this.shouldUpdate = this.shouldUpdate.bind(this)
     const key = this.getAttribute('key')
     this.updateForm = this.querySelector(`form[action='/todos/${key}']`)
     this.deleteForm = this.querySelector(`form[action='/todos/${key}/delete']`)
@@ -43,10 +44,17 @@ enhance('todos-item', {
     this.checkboxInput = this.querySelector('input[type="checkbox"]')
     this.checkboxInput.addEventListener('click', this.update)
     this.textInput = this.querySelector('input[type="text"]')
-    this.textInput.addEventListener('focusout', this.update)
+    this.textInput.addEventListener('focusout', this.shouldUpdate)
+  },
+  shouldUpdate(e) {
+    const title = this.getAttribute('title')
+    const value = e.target.value
+    if (title !== value) {
+      this.update()
+    }
   },
   update(e) {
-    e.preventDefault()
+    e && e.preventDefault()
     this.api.update(this.updateForm)
   },
   delete(e) {
