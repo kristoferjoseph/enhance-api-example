@@ -7,7 +7,6 @@ const api = API()
 
 enhance('todos-form-create', {
   api,
-  keys: [ 'problems' ],
   init() {
     this.submit = this.submit.bind(this)
     this.addEventListener('submit', this.submit)
@@ -21,6 +20,8 @@ enhance('todos-form-create', {
   submit(e) {
     e.preventDefault()
     this.api.create(this.form)
+    this.textInput.value = ''
+    this.textInput.focus()
   }
 })
 
@@ -34,6 +35,7 @@ enhance('todos-item', {
   api,
   init() {
     this.update = this.update.bind(this)
+    this.updateChecked = this.updateChecked.bind(this)
     this.delete = this.delete.bind(this)
     this.shouldUpdate = this.shouldUpdate.bind(this)
     const key = this.getAttribute('key')
@@ -42,7 +44,7 @@ enhance('todos-item', {
     this.updateForm.addEventListener('submit', this.update)
     this.deleteForm.addEventListener('submit', this.delete)
     this.checkboxInput = this.querySelector('input[type="checkbox"]')
-    this.checkboxInput.addEventListener('click', this.update)
+    this.checkboxInput.addEventListener('click', this.updateChecked)
     this.textInput = this.querySelector('input[type="text"]')
     this.textInput.addEventListener('focusout', this.shouldUpdate)
   },
@@ -56,6 +58,10 @@ enhance('todos-item', {
   update(e) {
     e && e.preventDefault()
     this.api.update(this.updateForm)
+  },
+  updateChecked(e) {
+    e && e.preventDefault()
+    this.update()
   },
   delete(e) {
     e.preventDefault()
