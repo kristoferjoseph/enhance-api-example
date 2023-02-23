@@ -9,6 +9,7 @@ export default function TodosItem({ html, state }) {
      class="
       flex
       flex-grow
+      items-center
      "
      method="POST"
     >

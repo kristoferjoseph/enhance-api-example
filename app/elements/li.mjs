@@ -9,7 +9,6 @@ export default function li(state) {
     class="
      flex
      flex-grow
-     items-center
     "
     completed="${completed}"
     created="${created}"
