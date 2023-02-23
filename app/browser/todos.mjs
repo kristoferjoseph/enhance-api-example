@@ -106,8 +106,8 @@ class TodoList extends EnhanceElement {
 
   storeChangedCallback(store={}) {
     const { todos=[] } = store
-    /*
-      // Surgical updates to maintain focus etc.
+    // Surgical updates to maintain focus etc.
+    // Update existing items
     todos.forEach(t=> {
       const existingItem = this.querySelector(`todos-item[key="${t.key}"]`)
       if (existingItem) {
@@ -121,17 +121,26 @@ class TodoList extends EnhanceElement {
         }
       }
       else {
+        // Add new items last
         const parser = new DOMParser()
         const doc = parser.parseFromString(li(t), "text/html")
         this.list.append(doc.body.firstElementChild)
       }
     })
-    */
-    const todoItems = todos
-      .map(t => li(t))
-      .join('\n')
 
-    this.list.innerHTML = todoItems
+    // Remove deleted items
+    const items = this.querySelectorAll('li')
+    const deletions = []
+    items.forEach(item=> {
+      const itemKey = item.getAttribute('id')
+      const found = todos.find(t => t.key === itemKey)
+      if (!found) {
+        deletions.push(item)
+      }
+    })
+
+    deletions.forEach(item => this.list.removeChild(item))
+    deletions.length = 0
   }
 
   render(args) {
@@ -182,12 +191,19 @@ class TodoItem extends EnhanceElement {
     if (oldValue !== newValue) {
       switch(name) {
       case 'title':
-        if (this.textInput)
+        if (this.textInput) {
           this.textInput.value = newValue
+        }
         break
       case 'completed':
-        if (this.checkboxInput)
-          this.checkboxInput.checked = newValue
+        if (this.checkboxInput) {
+          if (newValue === 'true') {
+            this.checkboxInput.checked = true
+          }
+          else {
+            this.checkboxInput.checked = false
+          }
+        }
         break
       }
     }
