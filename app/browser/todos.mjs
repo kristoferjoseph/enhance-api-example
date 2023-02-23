@@ -6,6 +6,12 @@ import li from '../elements/li.mjs'
 import API from './api.mjs'
 const api = API()
 
+function nodeFromString(str) {
+  const parser = new DOMParser()
+  const doc = parser.parseFromString(str, "text/html")
+  return doc.body.firstElementChild
+}
+
 class EnhanceElement extends HTMLElement {
   constructor() {
     super()
@@ -122,9 +128,7 @@ class TodoList extends EnhanceElement {
       }
       else {
         // Add new items last
-        const parser = new DOMParser()
-        const doc = parser.parseFromString(li(t), "text/html")
-        this.list.append(doc.body.firstElementChild)
+        this.list.append(nodeFromString(li(t)))
       }
     })
 
@@ -158,7 +162,8 @@ class TodoItem extends EnhanceElement {
     this.update = this.update.bind(this)
     this.updateChecked = this.updateChecked.bind(this)
     this.destroy = this.destroy.bind(this)
-    this.shouldUpdate = this.shouldUpdate.bind(this)
+    this.shouldCallAPI = this.shouldCallAPI.bind(this)
+    // Do not replace children if already present from SSR
     if (!this.children.length) {
       this.replaceChildren(this.template.content.cloneNode(true))
     }
@@ -173,7 +178,7 @@ class TodoItem extends EnhanceElement {
     this.checkboxInput = this.querySelector('input[type="checkbox"]')
     this.checkboxInput.addEventListener('click', this.updateChecked)
     this.textInput = this.querySelector('input[type="text"]')
-    this.textInput.addEventListener('focusout', this.shouldUpdate)
+    this.textInput.addEventListener('focusout', this.shouldCallAPI)
   }
 
   render(args) {
@@ -209,7 +214,8 @@ class TodoItem extends EnhanceElement {
     }
   }
 
-  shouldUpdate(e) {
+  shouldCallAPI(e) {
+    // Cuts down on unnecessary API calls
     const title = this.getAttribute('title')
     const value = e.target.value
     if (title !== value) {
@@ -218,12 +224,14 @@ class TodoItem extends EnhanceElement {
   }
 
   update(e) {
+    // Check for the existance of the event so we can call this method from other handlers
     e && e.preventDefault()
     this.api.update(this.updateForm)
   }
 
   updateChecked(e) {
     e && e.preventDefault()
+    // Would be nice to be able to set the checked state _before_ making the api call.
     this.update()
   }
 
