@@ -27,7 +27,6 @@ export default function Head(state={}) {
       </style>
       <link rel="icon" href="/_public/favicon.svg">
       <script>
-        window.__INITIAL_STATE__ = ${JSON.stringify({ todos })}
       </script>
     </head>
     <body class="font-sans color">
