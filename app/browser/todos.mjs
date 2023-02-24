@@ -69,6 +69,11 @@ class TodoForm extends EnhanceElement {
   constructor() {
     super()
     this.api = api
+    this.submit = this.submit.bind(this)
+    this.resetForm = this.resetForm.bind(this)
+    this.addEventListener('submit', this.submit)
+    this.form = this.querySelector('form')
+    this.textInput = this.querySelector('input[type="text"]')
   }
 
   render(args) {
@@ -76,11 +81,6 @@ class TodoForm extends EnhanceElement {
   }
 
   connectedCallback() {
-    this.submit = this.submit.bind(this)
-    this.resetForm = this.resetForm.bind(this)
-    this.addEventListener('submit', this.submit)
-    this.form = this.querySelector('form')
-    this.textInput = this.querySelector('input[type="text"]')
     this.textInput.focus()
   }
 
@@ -104,9 +104,6 @@ class TodoList extends EnhanceElement {
     super()
     this.api = api
     this.api.subscribe(this.storeChangedCallback, this.keys)
-  }
-
-  connectedCallback() {
     this.list = this.querySelector('ul')
   }
 
@@ -167,9 +164,6 @@ class TodoItem extends EnhanceElement {
     if (!this.children.length) {
       this.replaceChildren(this.template.content.cloneNode(true))
     }
-  }
-
-  connectedCallback() {
     const key = this.getAttribute('key')
     this.updateForm = this.querySelector(`form[action='/todos/${key}']`)
     this.deleteForm = this.querySelector(`form[action='/todos/${key}/delete']`)
@@ -196,18 +190,14 @@ class TodoItem extends EnhanceElement {
     if (oldValue !== newValue) {
       switch(name) {
       case 'title':
-        if (this.textInput) {
-          this.textInput.value = newValue
-        }
+        this.textInput.value = newValue
         break
       case 'completed':
-        if (this.checkboxInput) {
-          if (newValue === 'true') {
-            this.checkboxInput.checked = true
-          }
-          else {
-            this.checkboxInput.checked = false
-          }
+        if (newValue === 'true') {
+          this.checkboxInput.checked = true
+        }
+        else {
+          this.checkboxInput.checked = false
         }
         break
       }
