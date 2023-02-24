@@ -14,10 +14,7 @@ export default function API() {
     worker.onmessage = mutate
   }
 
-  if (window.__INITIAL_STATE__) {
-    const initialState = window.__INITIAL_STATE__
-    store.initialize(initialState)
-  }
+  initialize()
 
   return {
     create,
@@ -28,6 +25,10 @@ export default function API() {
     subscribe: store.subscribe,
     unsubscribe: store.unsubscribe
   }
+}
+
+function initialize() {
+  list()
 }
 
 function mutate(e) {
@@ -50,21 +51,21 @@ function mutate(e) {
 }
 
 function createMutation({ todo={}, problems={} }) {
-  const copy = store.todos.slice()
+  const copy = store?.todos?.slice() || []
   copy.push(todo)
   store.todos = copy
   store.problems = problems
 }
 
 function updateMutation({ todo={}, problems={} }) {
-  const copy = store.todos.slice()
+  const copy = store?.todos?.slice() || []
   copy.splice(copy.findIndex(i => i.key === todo.key), 1, todo)
   store.todos = copy
   store.problems = problems
 }
 
 function destroyMutation({ todo={}, problems={} }) {
-  let copy = store.todos.slice()
+  let copy = store?.todos?.slice() || []
   copy.splice(copy.findIndex(i => i.key === todo.key), 1)
   store.todos = copy
   store.problems = problems
